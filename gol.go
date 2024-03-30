@@ -65,17 +65,13 @@ func count_neighbours(board *[20][20]int, i, j int) int {
 }
 
 func cell(board *[20][20]int, i, j int) int {
-	if i < 0 {
-		i = len(board) + i
-	} else {
-		i = i % len(board)
-	}
-
-	if j < 0 {
-		j = len(board[i]) + j
-	} else {
-		j = j % len(board[i])
-	}
+	i = mod(i, len(board))
+	j = mod(j, len(board[i]))
 
 	return board[i][j]
+}
+
+// Workaround since go doesn't support the modulus operation
+func mod(x, y int) int {
+	return (x%y + y) % y
 }
